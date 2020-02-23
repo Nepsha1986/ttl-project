@@ -1,0 +1,29 @@
+{
+  "name": "ttl-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nepsha1986/ttl-project.git"
+  },
+  "author": "ALex Nepsha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nepsha1986/ttl-project/issues"
+  },
+  "homepage": "https://github.com/Nepsha1986/ttl-project#readme",
+  "dependencies": {
+    "react": "^16.12.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.41.6"
+  }
+}
