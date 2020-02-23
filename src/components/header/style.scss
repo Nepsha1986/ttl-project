@@ -1,0 +1,20 @@
+.header {
+  background: #1867c0;
+
+  &__container {
+    padding: 15px;
+    max-width: 1360px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__menu {
+
+  }
+
+  &__meta {
+
+  }
+}

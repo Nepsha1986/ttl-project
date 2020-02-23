@@ -1,14 +1,14 @@
-import React  from 'react';
-import  reactDOM from 'react-dom';
+import React from 'react';
+import reactDOM from 'react-dom';
 
+import {App} from "./components/app/App";
 import ErrorBoundary from "./components/error-boundary";
+import {Header} from "./components/header/Header";
 
-const App = () => {
-  return(
-      <ErrorBoundary>
-        <h2>My react app</h2>
-      </ErrorBoundary>
-  )
-};
-
-reactDOM.render(<App/>, document.getElementById('app'));
+reactDOM.render(
+    <ErrorBoundary>
+        <Header/>
+        <App/>
+    </ErrorBoundary>
+    , document.getElementById('app')
+);
