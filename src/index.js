@@ -1,11 +1,13 @@
 import React  from 'react';
 import  reactDOM from 'react-dom';
 
+import ErrorBoundary from "./components/error-boundary";
+
 const App = () => {
   return(
-      <div>
+      <ErrorBoundary>
         <h2>My react app</h2>
-      </div>
+      </ErrorBoundary>
   )
 };
 
