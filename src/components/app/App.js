@@ -1,7 +1,23 @@
 import React from "react";
+import {
+    Switch,
+    Route,
+} from "react-router-dom";
+
+import {Auth} from "../../pages/auth";
+import {Home} from "../../pages/home";
 
 export const App = () => {
-    return(
-        <h2>My react app</h2>
+    return (
+        <div>
+            <Switch>
+                <Route exact path="/">
+                    <Home/>
+                </Route>
+                <Route path="/login">
+                    <Auth/>
+                </Route>
+            </Switch>
+        </div>
     )
 };

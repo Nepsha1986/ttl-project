@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './style.scss';
+import {Link} from "react-router-dom";
 
 export const Header = () => {
     return (
@@ -13,7 +14,7 @@ export const Header = () => {
                 </div>
 
                 <div className="header__meta">
-                    Login
+                    <Link to="/login">Login</Link>
                 </div>
             </div>
         </header>
