@@ -4,6 +4,8 @@ import {
     Route,
 } from "react-router-dom";
 
+import '../../styles/all.scss';
+
 import {Auth} from "../../pages/auth";
 import {Home} from "../../pages/home";
 
