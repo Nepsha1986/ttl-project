@@ -1,0 +1,32 @@
+.timeline {
+  text-align: center;
+
+  &__item {
+
+  }
+}
+
+.timeline-item {
+  position: relative;
+
+  &__circle {
+    fill: #2196f3;
+    stroke: #2196f3;
+    width: 100px;
+    height: 150px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  &__note {
+    position: absolute;
+    max-width: 280px;
+    top: 0;
+    max-height: 120px;
+    right: 30px;
+
+    h4 {
+      margin-top: 0;
+    }
+  }
+}
