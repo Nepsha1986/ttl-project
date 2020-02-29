@@ -9,7 +9,7 @@ import './style.scss';
 
 import {Auth} from "../../pages/auth";
 import {Home} from "../../pages/home";
-import {Header} from "../header/Header";
+import {Header} from "../header";
 
 export const App = () => {
     return (
