@@ -1,5 +1,6 @@
 .timeline {
   text-align: center;
+  position: relative;
 
   &__item {
 
@@ -7,7 +8,12 @@
 }
 
 .timeline-item {
-  position: relative;
+  &--active {
+    .timeline-item__circle {
+      fill: #4bbaf3;
+      stroke: #4bbaf3;
+    }
+  }
 
   &__circle {
     fill: #2196f3;
@@ -16,17 +22,63 @@
     height: 150px;
     display: block;
     margin: 0 auto;
+    transition: .3s;
   }
 
-  &__note {
+  &__note-container {
     position: absolute;
     max-width: 280px;
     top: 0;
-    max-height: 120px;
     right: 30px;
+  }
 
+  &__note {
     h4 {
       margin-top: 0;
     }
+  }
+}
+
+.fade-in {
+  animation-name: fade-in;
+  animation-duration: 0.6s;
+  animation-fill-mode: forwards;
+}
+
+.fade-out {
+  animation-name: fade-out;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  1% {
+    transform: rotateX(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+    transform: rotateX(0deg);
+  }
+
+  99% {
+    opacity: 0;
+    transform: rotateX(0deg);
+  }
+
+  100% {
+    transform: rotateX(90deg);
   }
 }
