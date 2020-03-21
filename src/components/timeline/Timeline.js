@@ -14,11 +14,6 @@ export const Timeline = () => {
         })
     }, []);
 
-    useEffect(() => {
-        console.dir(container.current.clientWidth);
-        console.dir(container.current.clientHeight);
-    }, []);
-
     let setActive = (year) => {
         setData((data) => {
             return data.map(item => {
