@@ -20,6 +20,9 @@ export const Home = () => {
         <div className="container">
             <h2>Homepage</h2>
             <div className='history'>
+                <div className="history__timeline">
+                    <Timeline/>
+                </div>
                 <div className="history__posts">
                     {posts.map(post => {
                         return (
@@ -31,10 +34,6 @@ export const Home = () => {
                             />
                         )
                     })}
-                </div>
-
-                <div className="history__timeline">
-                    <Timeline/>
                 </div>
             </div>
         </div>

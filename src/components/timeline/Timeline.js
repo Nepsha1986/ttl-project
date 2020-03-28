@@ -10,6 +10,7 @@ export const Timeline = () => {
 
     useEffect(() => {
         TimeLineService.getEvents().then(events => {
+            console.log(events);
             setData(events);
         })
     }, []);

@@ -16,7 +16,7 @@ export const TimeLineItem = ({year, events, isActive, onclick}) => {
                 {
                     events.map(event => {
                         return (
-                            <div key={event.id}
+                            <div key={event._id}
                                  className={`timeline-item__note ${isActive ? 'fade-in' : 'fade-out'}`}
                             >
                                 <Card title={event.title} excerpt={event.excerpt}/>
