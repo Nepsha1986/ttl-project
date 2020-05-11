@@ -7,6 +7,27 @@
   }
 }
 
+.timeline-block {
+  display: flex;
+
+  &__timeline {
+    padding: 0 1rem;
+  }
+
+  &__events {
+    padding: 0 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.timeline-item-event {
+  padding: 15px;
+  flex-grow: 1;
+  flex-basis: 320px;
+}
+
 .timeline-item {
   &--active {
     .timeline-item__circle {

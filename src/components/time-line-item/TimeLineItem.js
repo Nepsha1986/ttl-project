@@ -1,7 +1,6 @@
 import React from 'react';
-import {Card} from "../card";
 
-export const TimeLineItem = ({year, events, isActive, onclick}) => {
+export const TimeLineItem = ({year, isActive, onclick}) => {
     return (
         <div key={year}
              className={`timeline-item ${isActive ? 'timeline-item--active' : ''}`}>
@@ -11,20 +10,6 @@ export const TimeLineItem = ({year, events, isActive, onclick}) => {
                 <circle cx="50" cy="50" r="40" strokeWidth="3"/>
                 <circle cx="50" cy="50" r="20" fill="#57a1dc" strokeWidth="3"/>
             </svg>
-
-            <div className="timeline-item__note-container">
-                {
-                    events.map(event => {
-                        return (
-                            <div key={event._id}
-                                 className={`timeline-item__note ${isActive ? 'fade-in' : 'fade-out'}`}
-                            >
-                                <Card title={event.title} excerpt={event.excerpt}/>
-                            </div>
-                        )
-                    })
-                }
-            </div>
         </div>
     )
 };
