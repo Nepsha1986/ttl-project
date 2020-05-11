@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 
 import './style.scss';
 import TimeLineService from "../../services/timeLineService";
@@ -50,7 +50,11 @@ export const Timeline = () => {
                 return (
                     item.isActive &&
                     <div key={item.year} className="timeline-block__events">
-                        {item.events.map(event => <TimeLineItemEvent event={event}/>)}
+                        {item.events.map(event => (
+                            <Fragment key={event._id}>
+                                <TimeLineItemEvent event={event}/>
+                            </Fragment>
+                        ))}
                     </div>
                 )
             })}
