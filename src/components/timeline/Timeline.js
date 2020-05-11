@@ -24,13 +24,12 @@ export const Timeline = () => {
             });
         });
 
-        console.log(data);
     };
 
     return (
         <div className='timeline-block' ref={container}>
             <div className="timeline-block__timeline">
-                {data.map(item => {
+                {data.map((item, i) => {
                     return (
                         <div key={item.year}>
                             <TimeLineItem
@@ -40,6 +39,7 @@ export const Timeline = () => {
                                 onclick={() => {
                                     setActive(item.year);
                                 }}
+                                isLast={i === data.length - 1}
                             />
                         </div>
                     )
