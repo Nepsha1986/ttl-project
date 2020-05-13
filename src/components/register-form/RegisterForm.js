@@ -1,21 +1,44 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
+import {useHistory} from "react-router-dom";
+
 import './style.scss';
 import {Button} from "../button";
+import userService from "../../services/userService";
 
 // TODO: rework to formik to handle validation.
 export const RegisterForm = () => {
     const [user, setUser] = useState({
-        name: "Alex",
+        username: '',
         email: '',
         password: ''
     });
 
+    const [created, setCreated] = useState(false);
+    const [error, setError] = useState(false);
+
+    const history = useHistory();
+
+    const handleErrors = (response) => {
+        if (!response.ok) {
+            console.log(response);
+            setError(true);
+            throw Error(response.statusText);
+        }
+        return response;
+    };
+
     const createUser = (user) => {
-        console.log(`Creating user:`, user);
+        userService.createUser(user)
+            .then(response => handleErrors(response))
+            .then(data => {
+                console.log(data);
+                setCreated(true)
+            })
+            .catch(err => setError(true));
     };
 
     const handleNameChange = (e) => {
-        setUser({...user, name: e.target.value});
+        setUser({...user, username: e.target.value});
     };
 
     const handleEmailChange = (e) => {
@@ -27,38 +50,70 @@ export const RegisterForm = () => {
     };
 
     return (
-        <div className="register-form">
-            <form>
-                <div className="register-form__group">
-                    <label htmlFor="name">name</label>
-                    <input
-                        type="text"
-                        id="name"
-                        onChange={handleNameChange}
-                    />
-                </div>
+        <div>
+            {
+                error && (
+                    <div>
+                        <p>An error has been occurred, please try later.</p>
+                        <button type="button" onClick={() => {
+                            history.push('/')
+                        }} className="btn btn-primary">Ok
+                        </button>
+                    </div>
+                )
+            }
 
-                <div className="register-form__group">
-                    <label htmlFor="email">email</label>
-                    <input
-                        type="text"
-                        id="email"
-                        onChange={handleEmailChange}
-                    />
-                </div>
+            {
+                created && !error && (
+                    <div>
+                        <p>User had been created successfully!</p>
+                        <button type="button" onClick={() => {
+                            history.push('/login')
+                        }} className="btn btn-primary">Ok
+                        </button>
+                    </div>
+                )
+            }
 
-                <div className="register-form__group">
-                    <label htmlFor="password">password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        onChange={handlePassChange}
-                    />
-                </div>
+            {
+                !created && !error && (
+                    <div className="register-form">
+                        <form>
+                            <div className="register-form__group">
+                                <label htmlFor="name">name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    onChange={handleNameChange}
+                                />
+                            </div>
 
+                            <div className="register-form__group">
+                                <label htmlFor="email">email</label>
+                                <input
+                                    type="text"
+                                    id="email"
+                                    onChange={handleEmailChange}
+                                />
+                            </div>
 
-                <Button onClick={(e)=>{ e.preventDefault(); createUser(user) }}>Submit</Button>
-            </form>
+                            <div className="register-form__group">
+                                <label htmlFor="password">password</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    onChange={handlePassChange}
+                                />
+                            </div>
+
+                            <Button onClick={(e) => {
+                                e.preventDefault();
+                                createUser(user)
+                            }}>Submit</Button>
+                        </form>
+                    </div>
+                )
+            }
         </div>
     )
 };
