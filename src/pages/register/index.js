@@ -1,3 +1,3 @@
-import {Register} from "./Auth";
+import {Register} from "./Register";
 
 export {Register};

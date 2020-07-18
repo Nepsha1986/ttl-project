@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import userService from "../../services/userService";
+import {withRouter} from "react-router";
 import './style.scss';
 import {Button} from "../button";
 
-export const AuthForm = () => {
+const AuthFormInner = ({history}) => {
     const [userData, setUserData] = useState({
         email: '',
         password: ''
@@ -22,11 +23,11 @@ export const AuthForm = () => {
     };
 
     const handleEmailChange = (e) => {
-        setUserData({...userData, email: e.target.value });
+        setUserData({...userData, email: e.target.value});
     };
 
     const handlePasswordChange = (e) => {
-        setUserData({...userData, password: e.target.value });
+        setUserData({...userData, password: e.target.value});
     };
 
     const handleSubmit = (e) => {
@@ -35,6 +36,9 @@ export const AuthForm = () => {
             .then(res => handleErrors(res))
             .then((data) => data.json())
             .then(data => {
+                console.log(this);
+
+                history.push(`/dashboard`);
                 console.log(data)
             })
     };
@@ -49,7 +53,7 @@ export const AuthForm = () => {
 
                 <div className="auth-form__group">
                     <label htmlFor="password">password</label>
-                    <input type="password" id="password" onChange={handlePasswordChange} />
+                    <input type="password" id="password" onChange={handlePasswordChange}/>
                 </div>
                 <div className="mb-3">
                     <Link to={"/register"}>Register</Link>
@@ -58,7 +62,9 @@ export const AuthForm = () => {
                 <Button onClick={handleSubmit}>Login</Button>
             </form>
 
-            { error ? <span>Authorisation failed!</span> : null }
+            {error ? <span>Authorisation failed!</span> : null}
         </div>
     )
 };
+
+export const AuthForm = withRouter(AuthFormInner);

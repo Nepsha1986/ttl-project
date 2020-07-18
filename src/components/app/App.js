@@ -9,7 +9,8 @@ import './style.scss';
 
 import {Auth} from "../../pages/auth";
 import {Home} from "../../pages/home";
-import {Register} from "../../pages/register/Register";
+import {Register} from "../../pages/register";
+import {Dashboard} from "../../pages/dashboard";
 import {Header} from "../header";
 
 export const App = () => {
@@ -34,6 +35,9 @@ export const App = () => {
                         </Route>
                         <Route path="/register">
                             <Register/>
+                        </Route>
+                        <Route path="/dashboard">
+                            <Dashboard/>
                         </Route>
                     </Switch>
                 </div>
