@@ -7,5 +7,15 @@ export default class userService {
             },
             body: JSON.stringify(user)
         })
+    };
+
+    static login(user) {
+        return fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
     }
 }
