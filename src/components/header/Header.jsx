@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {useUser} from "../../context/user";
 
 export const Header = () => {
-    const user = useUser();
+    const {userData, authenticated} = useUser();
 
     return (
         <header className='header'>
@@ -17,8 +17,18 @@ export const Header = () => {
                 </div>
 
                 <div className="header__meta">
-                    <Link to="/login">Login</Link>
-                    <span>{user?.email}</span>
+                    {!authenticated && <Link to="/login">Login</Link>}
+                    {authenticated}
+                    {authenticated ? (
+                        <div>
+                            <span>{userData?.email}</span>
+                            <button onClick={() => {
+                                alert('Logout')
+                            }}>Logout
+                            </button>
+                        </div>
+                    ) : null
+                    }
                 </div>
             </div>
         </header>

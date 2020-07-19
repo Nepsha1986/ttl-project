@@ -4,42 +4,49 @@ import userService from "../../services/userService";
 import {withRouter} from "react-router";
 import './style.scss';
 import {Button} from "../button";
+import {useUser} from "../../context/user";
 
 const AuthFormInner = ({history}) => {
-    const [userData, setUserData] = useState({
+    const {setUserData, setAuthenticated} = useUser();
+    const [error, setError] = useState(false);
+
+    const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
 
-    const [error, setError] = useState(false);
-
     const handleErrors = (response) => {
         if (!response.ok) {
             setError(true);
-            throw Error(response.statusText);
+            throw Error(response.body);
         }
         setError(false);
         return response;
     };
 
     const handleEmailChange = (e) => {
-        setUserData({...userData, email: e.target.value});
+        setFormData({...formData, email: e.target.value});
     };
 
     const handlePasswordChange = (e) => {
-        setUserData({...userData, password: e.target.value});
+        setFormData({...formData, password: e.target.value});
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        userService.login(userData)
+        userService.login(formData)
             .then(res => handleErrors(res))
-            .then((data) => data.json())
+            .then((data) => {
+                return data.json()
+            })
             .then(data => {
-                console.log(this);
-
+                localStorage.setItem('token', data.token);
+                setUserData({
+                    name: data.name,
+                    email: data.email
+                });
+                setAuthenticated(true);
                 history.push(`/dashboard`);
-                console.log(data)
             })
     };
 

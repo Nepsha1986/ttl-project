@@ -10,9 +10,18 @@ export default class userService {
     };
 
     static getUserData() {
-        return fetch('http://localhost:3000/user')
+        return fetch('http://localhost:3000/user', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': localStorage.getItem('token')
+            }
+        })
             .then(data =>  data.json())
-            .then(data => data);
+            .then(data => {
+                console.log(data);
+                return data;
+            });
     };
 
     static login(user) {

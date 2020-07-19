@@ -5,6 +5,7 @@ export const UserContext = createContext({});
 
 export const UserProvider = ({children}) => {
     const [userData, setUserData] = useState({});
+    const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
         userService.getUserData().then(data => {
@@ -13,7 +14,14 @@ export const UserProvider = ({children}) => {
     }, []);
 
     return (
-        <UserContext.Provider value={userData}>
+        <UserContext.Provider value={
+            {
+                userData,
+                setUserData,
+                authenticated,
+                setAuthenticated
+            }
+        }>
             {children}
         </UserContext.Provider>
     )
