@@ -9,6 +9,12 @@ export default class userService {
         })
     };
 
+    static getUserData() {
+        return fetch('http://localhost:3000/user')
+            .then(data =>  data.json())
+            .then(data => data);
+    };
+
     static login(user) {
         return fetch('http://localhost:3000/login', {
             method: 'POST',
