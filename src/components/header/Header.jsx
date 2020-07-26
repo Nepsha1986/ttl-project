@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 import './style.scss';
 import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {useUser} from "../../context/user";
+import {UserBlock} from "../user-block";
+import {Button} from "../button";
 
 export const Header = () => {
-    const {userData, authenticated, setAuthenticated} = useUser();
+    const {authenticated} = useUser();
+    const history = useHistory();
 
     return (
         <header className='header'>
@@ -17,19 +21,17 @@ export const Header = () => {
                 </div>
 
                 <div className="header__meta">
-                    {!authenticated && <Link to="/login">Login</Link>}
-                    {authenticated}
-                    {authenticated ? (
-                        <div>
-                            <span>{userData?.email}</span>
-                            <button onClick={() => {
-                                localStorage.clear();
-                                setAuthenticated(false);
-                            }}>Logout
-                            </button>
-                        </div>
-                    ) : null
+                    {!authenticated &&
+                    <Fragment>
+                        <Button utilities={'mr-2'} color="secondary" onClick={() => {
+                            history.push('/login')
+                        }}>Login</Button>
+                        <Button color="secondary" onClick={() => {
+                            history.push('/register')
+                        }}>Register</Button>
+                    </Fragment>
                     }
+                    {authenticated ? <UserBlock/> : null}
                 </div>
             </div>
         </header>
