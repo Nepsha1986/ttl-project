@@ -10,6 +10,7 @@ export const UserProvider = ({children}) => {
     useEffect(() => {
         userService.getUserData().then(data => {
             setUserData(data);
+            setAuthenticated(true);
         });
     }, []);
 

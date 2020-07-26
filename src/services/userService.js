@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default class userService {
     static createUser(user) {
         return fetch('http://localhost:3000/user/create', {
@@ -17,11 +19,8 @@ export default class userService {
                 'x-access-token': localStorage.getItem('token')
             }
         })
-            .then(data =>  data.json())
-            .then(data => {
-                console.log(data);
-                return data;
-            });
+            .then(data => data.json())
+            .then(data => data)
     };
 
     static login(user) {

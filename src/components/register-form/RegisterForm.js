@@ -20,7 +20,6 @@ export const RegisterForm = () => {
 
     const handleErrors = (response) => {
         if (!response.ok) {
-            console.log(response);
             setError(true);
             throw Error(response.statusText);
         }
@@ -31,8 +30,12 @@ export const RegisterForm = () => {
         userService.createUser(user)
             .then(response => handleErrors(response))
             .then(data => {
-                console.log(data);
-                setCreated(true)
+                setCreated(true);
+                return data.json();
+            })
+            .then(data => {
+                localStorage.setItem('token', data.token);
+                setCreated(true);
             })
             .catch(err => setError(true));
     };

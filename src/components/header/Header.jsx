@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {useUser} from "../../context/user";
 
 export const Header = () => {
-    const {userData, authenticated} = useUser();
+    const {userData, authenticated, setAuthenticated} = useUser();
 
     return (
         <header className='header'>
@@ -23,7 +23,8 @@ export const Header = () => {
                         <div>
                             <span>{userData?.email}</span>
                             <button onClick={() => {
-                                alert('Logout')
+                                localStorage.clear();
+                                setAuthenticated(false);
                             }}>Logout
                             </button>
                         </div>
