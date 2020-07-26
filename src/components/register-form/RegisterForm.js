@@ -4,10 +4,12 @@ import {useHistory} from "react-router-dom";
 import './style.scss';
 import {Button} from "../button";
 import userService from "../../services/userService";
+import {useUser} from "../../context/user";
 
 // TODO: rework to formik to handle validation.
 export const RegisterForm = () => {
-    const [user, setUser] = useState({
+    const {setUserData, setAuthenticated} = useUser();
+    const [newUser, setNewUser] = useState({
         username: '',
         email: '',
         password: ''
@@ -35,21 +37,24 @@ export const RegisterForm = () => {
             })
             .then(data => {
                 localStorage.setItem('token', data.token);
+                console.log(data);
+                setUserData(data);
+                setAuthenticated(true);
                 setCreated(true);
             })
             .catch(err => setError(true));
     };
 
     const handleNameChange = (e) => {
-        setUser({...user, username: e.target.value});
+        setNewUser({...newUser, username: e.target.value});
     };
 
     const handleEmailChange = (e) => {
-        setUser({...user, email: e.target.value});
+        setNewUser({...newUser, email: e.target.value});
     };
 
     const handlePassChange = (e) => {
-        setUser({...user, password: e.target.value});
+        setNewUser({...newUser, password: e.target.value});
     };
 
     return (
@@ -71,7 +76,7 @@ export const RegisterForm = () => {
                     <div>
                         <p>User had been created successfully!</p>
                         <button type="button" onClick={() => {
-                            history.push('/login')
+                            history.push('/dashboard')
                         }} className="btn btn-primary">Ok
                         </button>
                     </div>
@@ -111,7 +116,7 @@ export const RegisterForm = () => {
 
                             <Button onClick={(e) => {
                                 e.preventDefault();
-                                createUser(user)
+                                createUser(newUser)
                             }}>Submit</Button>
                         </form>
                     </div>
