@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 import './style.scss';
 import {Button} from "../button";
@@ -58,7 +58,7 @@ export const RegisterForm = () => {
     };
 
     return (
-        <div>
+        <div className='card'>
             {
                 error && (
                     <div>
@@ -86,6 +86,7 @@ export const RegisterForm = () => {
             {
                 !created && !error && (
                     <div className="register-form">
+                        <h3>Register</h3>
                         <form>
                             <div className="register-form__group">
                                 <label htmlFor="name">name</label>
@@ -114,10 +115,11 @@ export const RegisterForm = () => {
                                 />
                             </div>
 
-                            <Button onClick={(e) => {
+                            <Button utilities={'mb-3'} onClick={(e) => {
                                 e.preventDefault();
                                 createUser(newUser)
                             }}>Submit</Button>
+                            <p>Already have account? <Link to={"/login"}>Login</Link></p>
                         </form>
                     </div>
                 )

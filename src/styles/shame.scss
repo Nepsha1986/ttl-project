@@ -2,6 +2,20 @@
   box-sizing: border-box;
 }
 
+main {
+  min-height: 100vh;
+}
+
+.window-layout {
+  &__container {
+    background: #ebebeb;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .history {
   display: flex;
 

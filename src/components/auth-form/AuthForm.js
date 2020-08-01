@@ -51,25 +51,28 @@ const AuthFormInner = ({history}) => {
     };
 
     return (
-        <div className="auth-form">
-            <form>
-                <div className="auth-form__group">
-                    <label htmlFor="email">email</label>
-                    <input type="text" id="email" onChange={handleEmailChange}/>
-                </div>
+        <div className='card'>
+            <div className="auth-form">
+                <h3 className="mb-5">Login</h3>
+                <form>
+                    <div className="auth-form__group">
+                        <label htmlFor="email">email</label>
+                        <input type="text" id="email" onChange={handleEmailChange}/>
+                    </div>
 
-                <div className="auth-form__group">
-                    <label htmlFor="password">password</label>
-                    <input type="password" id="password" onChange={handlePasswordChange}/>
-                </div>
-                <div className="mb-3">
-                    <Link to={"/register"}>Register</Link>
-                </div>
+                    <div className="auth-form__group">
+                        <label htmlFor="password">password</label>
+                        <input type="password" id="password" onChange={handlePasswordChange}/>
+                    </div>
+                    <Button utilities={'mb-3'} onClick={handleSubmit}>Login</Button>
+                    <div className="mb-3">
+                        <Link to={"/register"}>Create new account</Link><span> / </span>
+                        <Link to={"/restore-password"}>Forgot your password?</Link>
+                    </div>
+                </form>
 
-                <Button onClick={handleSubmit}>Login</Button>
-            </form>
-
-            {error ? <span>Authorisation failed!</span> : null}
+                {error ? <span>Authorisation failed!</span> : null}
+            </div>
         </div>
     )
 };
