@@ -20,6 +20,10 @@
   color: #fff;
   white-space: nowrap;
 
+  &:hover {
+    color: #fff;
+  }
+
   &--secondary {
     background: $color-secondary;
   }
