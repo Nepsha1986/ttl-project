@@ -1,22 +1,14 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {withRouter} from "react-router";
-import * as Yup from 'yup';
+import {Formik, Field, Form, ErrorMessage} from 'formik';
 
 import './style.scss';
 import userService from "../../services/userService";
 import {Button} from "../button";
 import {useUser} from "../../context/user";
 import {Alert} from "../../primitives/alert/Alert";
-import {Formik, Field, Form, ErrorMessage} from 'formik';
-
-const AuthSchema = Yup.object().shape({
-    email: Yup.string()
-        .email('Invalid email')
-        .required('Email is required'),
-    password: Yup.string()
-        .required('No password provided.')
-});
+import {AuthSchema} from './AuthSchema';
 
 const AuthFormInner = ({history}) => {
     const {setUserData, setAuthenticated} = useUser();
