@@ -19,7 +19,8 @@ export const Button = (
 };
 
 Button.defaultProps = {
-    color: 'primary'
+    color: 'primary',
+    utilities: ''
 };
 
 Button.propTypes = {

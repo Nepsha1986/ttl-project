@@ -64,7 +64,7 @@ export const RegisterForm = () => {
                     <div>
                         <p>An error has been occurred, please try later.</p>
                         <button type="button" onClick={() => {
-                            history.push('/')
+                            setError(false)
                         }} className="btn btn-primary">Ok
                         </button>
                     </div>

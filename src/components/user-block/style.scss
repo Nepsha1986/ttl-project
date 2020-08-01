@@ -1,8 +1,63 @@
 @import "../../styles/variables/_variables.scss";
 
 .user-block {
+  z-index: 5;
+  position: relative;
+
   &__email {
-    color: #fff;
     margin-right: 1rem;
+  }
+
+  &__icon {
+    color: #fff;
+  }
+
+  &__actions {
+    width: 300px;
+    padding: 15px;
+    background: #fff;
+    position: absolute;
+    top: calc(100% + 20px);
+    box-shadow: 0 9px 12px -12px rgba(0, 0, 0, 0.44);
+    right: 0;
+  }
+}
+
+.user-card {
+  &__email {
+    font-size: 0.75rem;
+  }
+
+  &__name {
+    font-size: 0.85rem;
+  }
+
+  &__image {
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+
+  &__link {
+    color: #403f3f;
+    display: block;
+  }
+
+  &__header {
+    color: #070707;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+  }
+
+  &__header-left {
+
+  }
+
+  &__header-right {
+
   }
 }
