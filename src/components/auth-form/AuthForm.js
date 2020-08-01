@@ -42,7 +42,7 @@ const AuthFormInner = ({history}) => {
             .then(data => {
                 localStorage.setItem('token', data.token);
                 setUserData({
-                    name: data.name,
+                    username: data.name,
                     email: data.email
                 });
                 setAuthenticated(true);

@@ -32,4 +32,8 @@ export default class userService {
             body: JSON.stringify(user)
         })
     }
+
+    static logout() {
+        localStorage.clear();
+    }
 }

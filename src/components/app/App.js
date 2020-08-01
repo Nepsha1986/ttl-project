@@ -23,7 +23,8 @@ export const App = () => {
 
             <div className="app__body">
                 <div className="app__aside">
-                    <Link to="/">Home</Link>
+                    <Link to="/">Home</Link><br/>
+                    <Link to="/dashboard">Dashboard</Link>
                 </div>
 
                 <div className="app__main">
