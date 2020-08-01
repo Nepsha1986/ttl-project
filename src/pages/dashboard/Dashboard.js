@@ -1,9 +1,10 @@
 import React from 'react';
+import {WithSidebar} from "../../layouts/WithSidebar";
 
 export const Dashboard = () => {
     return (
-        <div>
+        <WithSidebar>
             Dashboard
-        </div>
+        </WithSidebar>
     )
 };

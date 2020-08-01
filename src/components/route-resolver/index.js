@@ -4,6 +4,8 @@ import {useUser} from '../../context/user';
 
 export const PrivateRoute = ({component: Component, ...rest}) => {
     const {authenticated} = useUser();
+
+    console.log(authenticated);
     return (
         <Route
             {...rest}
