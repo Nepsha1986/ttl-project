@@ -8,11 +8,16 @@ export const Button = (
         children,
         color,
         utilities,
-        onClick
+        onClick,
+        type
     }
 ) => {
     return (
-        <button className={`btn btn--${color} ${utilities}`} onClick={onClick}>
+        <button
+            type={type}
+            className={`btn btn--${color} ${utilities}`}
+            onClick={onClick}
+        >
             {children}
         </button>
     )
@@ -20,12 +25,14 @@ export const Button = (
 
 Button.defaultProps = {
     color: 'primary',
-    utilities: ''
+    utilities: '',
+    type: ''
 };
 
 Button.propTypes = {
     children: PropTypes.node.isRequired,
     color: PropTypes.oneOf(['primary', 'secondary', 'alternative']),
     utilities: PropTypes.string,
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    type: PropTypes.string,
 };

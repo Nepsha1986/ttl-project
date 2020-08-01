@@ -1,20 +1,17 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import userService from "../../services/userService";
 import {withRouter} from "react-router";
+
 import './style.scss';
+import userService from "../../services/userService";
 import {Button} from "../button";
 import {useUser} from "../../context/user";
 import {Alert} from "../../primitives/alert/Alert";
+import {Formik, Field, Form} from 'formik';
 
 const AuthFormInner = ({history}) => {
     const {setUserData, setAuthenticated} = useUser();
     const [error, setError] = useState(false);
-
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
 
     const handleErrors = (response) => {
         if (!response.ok) {
@@ -25,17 +22,8 @@ const AuthFormInner = ({history}) => {
         return response;
     };
 
-    const handleEmailChange = (e) => {
-        setFormData({...formData, email: e.target.value});
-    };
-
-    const handlePasswordChange = (e) => {
-        setFormData({...formData, password: e.target.value});
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        userService.login(formData)
+    const handleSubmit = (data) => {
+        userService.login(data)
             .then(res => handleErrors(res))
             .then((data) => {
                 return data.json()
@@ -53,27 +41,42 @@ const AuthFormInner = ({history}) => {
 
     return (
         <div className='card'>
-            <div className="auth-form">
-                <h3 className="mb-5">Login</h3>
-                <form>
+            <Formik
+                initialValues={{
+                    email: '',
+                    password: ''
+                }}
+                onSubmit={(values => {
+                    handleSubmit(values)
+                })}
+            >
+                <Form className='auth-form'>
+                    <h3 className="mb-5">Login</h3>
                     <div className="auth-form__group">
-                        <label htmlFor="email">email</label>
-                        <input type="text" id="email" onChange={handleEmailChange}/>
+                        <label htmlFor="firstName">email</label>
+                        <Field id="email" name="email"/>
                     </div>
 
                     <div className="auth-form__group">
-                        <label htmlFor="password">password</label>
-                        <input type="password" id="password" onChange={handlePasswordChange}/>
+                        <label htmlFor="lastName">password</label>
+                        <Field type="password" id="password" name="password"/>
                     </div>
-                    <Button utilities={'mb-3'} onClick={handleSubmit}>Login</Button>
+
+                    <Button
+                        type={'submit'}
+                        utilities={'mb-3'}
+                        onClick={handleSubmit}
+                    >
+                        Login
+                    </Button>
+
                     <div className="mb-3">
                         <Link to={"/register"}>Create new account</Link><span> / </span>
                         <Link to={"/restore-password"}>Forgot your password?</Link>
                     </div>
-                </form>
-
-                {error ? <Alert type='danger'>Authorisation failed! Please try later.</Alert> : null}
-            </div>
+                    {error ? <Alert type='danger'>Authorisation failed! Please try later.</Alert> : null}
+                </Form>
+            </Formik>
         </div>
     )
 };
