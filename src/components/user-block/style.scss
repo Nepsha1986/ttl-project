@@ -4,12 +4,15 @@
   z-index: 5;
   position: relative;
 
-  &__email {
-    margin-right: 1rem;
+  &__btn {
+    &:hover {
+      opacity: 0.9;
+      color: #fff;
+    }
   }
 
-  &__icon {
-    color: #fff;
+  &__email {
+    margin-right: 1rem;
   }
 
   &__actions {
@@ -17,7 +20,7 @@
     padding: 15px;
     background: #fff;
     position: absolute;
-    top: calc(100% + 20px);
+    top: calc(100% + 40px);
     box-shadow: 0 9px 12px -12px rgba(0, 0, 0, 0.44);
     right: 0;
   }

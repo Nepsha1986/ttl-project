@@ -5,6 +5,7 @@ import './style.scss';
 import {Button} from "../button";
 import userService from "../../services/userService";
 import {useUser} from "../../context/user";
+import {Alert} from "../../primitives/alert/Alert";
 
 // TODO: rework to formik to handle validation.
 export const RegisterForm = () => {
@@ -41,6 +42,10 @@ export const RegisterForm = () => {
                 setUserData(data);
                 setAuthenticated(true);
                 setCreated(true);
+
+                setTimeout(() => {
+                    history.push('/')
+                }, 3000);
             })
             .catch(err => setError(true));
     };
@@ -59,71 +64,54 @@ export const RegisterForm = () => {
 
     return (
         <div className='card'>
-            {
-                error && (
-                    <div>
-                        <p>An error has been occurred, please try later.</p>
-                        <button type="button" onClick={() => {
-                            setError(false)
-                        }} className="btn btn-primary">Ok
-                        </button>
+            <div className="register-form">
+                <h3>Register</h3>
+                <form>
+                    <div className="register-form__group">
+                        <label htmlFor="name">name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            onChange={handleNameChange}
+                        />
                     </div>
-                )
-            }
 
-            {
-                created && !error && (
-                    <div>
-                        <p>User had been created successfully!</p>
-                        <button type="button" onClick={() => {
-                            history.push('/dashboard')
-                        }} className="btn btn-primary">Ok
-                        </button>
+                    <div className="register-form__group">
+                        <label htmlFor="email">email</label>
+                        <input
+                            type="text"
+                            id="email"
+                            onChange={handleEmailChange}
+                        />
                     </div>
-                )
-            }
 
-            {
-                !created && !error && (
-                    <div className="register-form">
-                        <h3>Register</h3>
-                        <form>
-                            <div className="register-form__group">
-                                <label htmlFor="name">name</label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    onChange={handleNameChange}
-                                />
-                            </div>
-
-                            <div className="register-form__group">
-                                <label htmlFor="email">email</label>
-                                <input
-                                    type="text"
-                                    id="email"
-                                    onChange={handleEmailChange}
-                                />
-                            </div>
-
-                            <div className="register-form__group">
-                                <label htmlFor="password">password</label>
-                                <input
-                                    type="password"
-                                    id="password"
-                                    onChange={handlePassChange}
-                                />
-                            </div>
-
-                            <Button utilities={'mb-3'} onClick={(e) => {
-                                e.preventDefault();
-                                createUser(newUser)
-                            }}>Submit</Button>
-                            <p>Already have account? <Link to={"/login"}>Login</Link></p>
-                        </form>
+                    <div className="register-form__group">
+                        <label htmlFor="password">password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            onChange={handlePassChange}
+                        />
                     </div>
-                )
-            }
+
+                    <Button utilities={'mb-3'} onClick={(e) => {
+                        e.preventDefault();
+                        createUser(newUser)
+                    }}>Submit</Button>
+                    <p>Already have account? <Link to={"/login"}>Login</Link></p>
+                    {error && (
+                        <Alert type={'danger'}>
+                            <p>An error has been occurred, please try later.</p>
+                        </Alert>
+                    )}
+
+                    {created && !error && (
+                        <Alert type={'success'}>
+                            <p>User had been created successfully! You'll be redirected to the home page in a few moments.</p>
+                        </Alert>
+                    )}
+                </form>
+            </div>
         </div>
-    )
+    );
 };

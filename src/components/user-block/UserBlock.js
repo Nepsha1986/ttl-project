@@ -15,7 +15,8 @@ export const UserBlock = () => {
 
     return (
         <span className="user-block">
-            <span onClick={() => {setActionsActive(!actionsActive)}} className="user-block__icon">
+            <span onClick={() => {setActionsActive(!actionsActive)}} className="btn btn-link user-block__btn">
+                <span className="user-block__name mr-3">{userData?.username}</span>
                 <i className="fas fa-user"></i>
             </span>
 
