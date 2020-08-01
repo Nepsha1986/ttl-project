@@ -1,13 +1,22 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {withRouter} from "react-router";
+import * as Yup from 'yup';
 
 import './style.scss';
 import userService from "../../services/userService";
 import {Button} from "../button";
 import {useUser} from "../../context/user";
 import {Alert} from "../../primitives/alert/Alert";
-import {Formik, Field, Form} from 'formik';
+import {Formik, Field, Form, ErrorMessage} from 'formik';
+
+const AuthSchema = Yup.object().shape({
+    email: Yup.string()
+        .email('Invalid email')
+        .required('Email is required'),
+    password: Yup.string()
+        .required('No password provided.')
+});
 
 const AuthFormInner = ({history}) => {
     const {setUserData, setAuthenticated} = useUser();
@@ -22,8 +31,8 @@ const AuthFormInner = ({history}) => {
         return response;
     };
 
-    const handleSubmit = (data) => {
-        userService.login(data)
+    const handleSubmit = (userData) => {
+        userService.login(userData)
             .then(res => handleErrors(res))
             .then((data) => {
                 return data.json()
@@ -46,9 +55,10 @@ const AuthFormInner = ({history}) => {
                     email: '',
                     password: ''
                 }}
-                onSubmit={(values => {
+                validationSchema={AuthSchema}
+                onSubmit={values => {
                     handleSubmit(values)
-                })}
+                }}
             >
                 <Form className='auth-form'>
                     <h3 className="mb-5">Login</h3>
@@ -56,16 +66,17 @@ const AuthFormInner = ({history}) => {
                         <label htmlFor="firstName">email</label>
                         <Field id="email" name="email"/>
                     </div>
+                    <ErrorMessage name="email">{(msg) => <Alert children={msg} type={"danger"}/>}</ErrorMessage>
 
                     <div className="auth-form__group">
                         <label htmlFor="lastName">password</label>
                         <Field type="password" id="password" name="password"/>
                     </div>
+                    <ErrorMessage name="password">{(msg) => <Alert children={msg} type={"danger"}/>}</ErrorMessage>
 
                     <Button
-                        type={'submit'}
                         utilities={'mb-3'}
-                        onClick={handleSubmit}
+                        type={'submit'}
                     >
                         Login
                     </Button>
@@ -74,7 +85,7 @@ const AuthFormInner = ({history}) => {
                         <Link to={"/register"}>Create new account</Link><span> / </span>
                         <Link to={"/restore-password"}>Forgot your password?</Link>
                     </div>
-                    {error ? <Alert type='danger'>Authorisation failed! Please try later.</Alert> : null}
+                    {error ? <Alert type='danger'>Authorisation failed! Please check your login data.</Alert> : null}
                 </Form>
             </Formik>
         </div>

@@ -26,13 +26,14 @@ export const Button = (
 Button.defaultProps = {
     color: 'primary',
     utilities: '',
-    type: ''
+    type: '',
+    onClick: () => {}
 };
 
 Button.propTypes = {
     children: PropTypes.node.isRequired,
     color: PropTypes.oneOf(['primary', 'secondary', 'alternative']),
     utilities: PropTypes.string,
-    onClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
     type: PropTypes.string,
 };
