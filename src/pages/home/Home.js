@@ -4,7 +4,7 @@ import {Card} from "../../components/card";
 import postService from '../../services/postService';
 import {Timeline} from "../../components/timeline";
 import {Button} from "../../components/button";
-import {FullWidth} from "../../layouts/FullWidth";
+import {FullWidth} from "../../layouts";
 
 export const Home = () => {
     let [posts, setPosts] = useState([]);

@@ -1,5 +1,5 @@
 import React from 'react';
-import {WithSidebar} from "../../layouts/WithSidebar";
+import {WithSidebar} from "../../layouts";
 
 export const Dashboard = () => {
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import "./style.scss";
 import {AuthForm} from "../../components/auth-form";
-import {Window} from "../../layouts/Window";
+import {Window} from "../../layouts";
 import {Link} from "react-router-dom";
 
 export const Auth = () => {

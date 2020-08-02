@@ -1,11 +1,10 @@
 import React from "react";
 import {
     Switch,
-    Route, Link,
+    Route,
 } from "react-router-dom";
 
 import '../../styles/all.scss';
-import './style.scss';
 
 import {Auth} from "../../pages/auth";
 import {Home} from "../../pages/home";
