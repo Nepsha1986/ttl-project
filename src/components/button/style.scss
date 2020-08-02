@@ -1,3 +1,5 @@
+@import "../../styles/variables/_variables.scss";
+
 .btn {
   align-items: center;
   border-radius: 4px;
@@ -13,8 +15,16 @@
   text-decoration: none;
   text-indent: 0.0892857143em;
   vertical-align: middle;
-  background: #1867c0;
+  background: $color-primary;
   border: none;
   color: #fff;
   white-space: nowrap;
+
+  &:hover {
+    color: #fff;
+  }
+
+  &--secondary {
+    background: $color-secondary;
+  }
 }

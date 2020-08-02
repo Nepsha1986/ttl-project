@@ -1,18 +1,16 @@
 import React, {useState} from "react";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import {Formik, Field, Form, ErrorMessage} from "formik";
 
 import './style.scss';
 import {Button} from "../button";
 import userService from "../../services/userService";
+import {useUser} from "../../context/user";
+import {Alert} from "../../primitives/alert/Alert";
+import {RegisterSchema} from "./RegisterSchema";
 
-// TODO: rework to formik to handle validation.
 export const RegisterForm = () => {
-    const [user, setUser] = useState({
-        username: '',
-        email: '',
-        password: ''
-    });
-
+    const {setUserData, setAuthenticated} = useUser();
     const [created, setCreated] = useState(false);
     const [error, setError] = useState(false);
 
@@ -20,7 +18,6 @@ export const RegisterForm = () => {
 
     const handleErrors = (response) => {
         if (!response.ok) {
-            console.log(response);
             setError(true);
             throw Error(response.statusText);
         }
@@ -31,89 +28,84 @@ export const RegisterForm = () => {
         userService.createUser(user)
             .then(response => handleErrors(response))
             .then(data => {
-                console.log(data);
-                setCreated(true)
+                setError(false);
+                setCreated(true);
+                return data.json();
             })
-            .catch(err => setError(true));
-    };
+            .then(data => {
+                localStorage.setItem('token', data.token);
+                setUserData(data);
+                setAuthenticated(true);
+                setCreated(true);
 
-    const handleNameChange = (e) => {
-        setUser({...user, username: e.target.value});
-    };
-
-    const handleEmailChange = (e) => {
-        setUser({...user, email: e.target.value});
-    };
-
-    const handlePassChange = (e) => {
-        setUser({...user, password: e.target.value});
+                setTimeout(() => {
+                    history.push('/')
+                }, 3000);
+            })
+            .catch(err => {
+                setError(true);
+                setTimeout(() => {
+                    setError(false);
+                }, 3500);
+            });
     };
 
     return (
-        <div>
-            {
-                error && (
-                    <div>
-                        <p>An error has been occurred, please try later.</p>
-                        <button type="button" onClick={() => {
-                            history.push('/')
-                        }} className="btn btn-primary">Ok
-                        </button>
-                    </div>
-                )
-            }
-
-            {
-                created && !error && (
-                    <div>
-                        <p>User had been created successfully!</p>
-                        <button type="button" onClick={() => {
-                            history.push('/login')
-                        }} className="btn btn-primary">Ok
-                        </button>
-                    </div>
-                )
-            }
-
-            {
-                !created && !error && (
+        <div className='card'>
+            <Formik
+                initialValues={{
+                    username: '',
+                    email: '',
+                    password: ''
+                }}
+                validationSchema={RegisterSchema}
+                onSubmit={values => {
+                    createUser(values);
+                }}>
+                <Form>
                     <div className="register-form">
-                        <form>
-                            <div className="register-form__group">
-                                <label htmlFor="name">name</label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    onChange={handleNameChange}
-                                />
-                            </div>
+                        <h3>Register</h3>
+                        <div className="register-form__group">
+                            <label htmlFor="username">name</label>
+                            <Field name="username" id="username"/>
+                        </div>
+                        <ErrorMessage name="username">{(msg) => <Alert children={msg} type={"danger"}/>}</ErrorMessage>
 
-                            <div className="register-form__group">
-                                <label htmlFor="email">email</label>
-                                <input
-                                    type="text"
-                                    id="email"
-                                    onChange={handleEmailChange}
-                                />
-                            </div>
+                        <div className="register-form__group">
+                            <label htmlFor="email">email</label>
+                            <Field name="email" id="email"/>
+                        </div>
+                        <ErrorMessage name="email">{(msg) => <Alert children={msg} type={"danger"}/>}</ErrorMessage>
 
-                            <div className="register-form__group">
-                                <label htmlFor="password">password</label>
-                                <input
-                                    type="password"
-                                    id="password"
-                                    onChange={handlePassChange}
-                                />
-                            </div>
+                        <div className="register-form__group">
+                            <label htmlFor="password">password</label>
+                            <Field name="password" id="password" type="password"/>
+                        </div>
+                        <ErrorMessage name="password">{(msg) => <Alert children={msg} type={"danger"}/>}</ErrorMessage>
 
-                            <Button onClick={(e) => {
-                                e.preventDefault();
-                                createUser(user)
-                            }}>Submit</Button>
-                        </form>
+                        <Button
+                            utilities={'mb-3'}
+                            type={'submit'}
+                        >
+                            Submit
+                        </Button>
+
+                        <p>Already have account? <Link to={"/login"}>Login</Link></p>
+                        {error && (
+                            <Alert type={'danger'}>
+                                <p>An error has been occurred, please try later.</p>
+                            </Alert>
+                        )}
+
+                        {created && !error && (
+                            <Alert type={'success'}>
+                                <p>User had been created successfully! You'll be redirected to the home page in a few
+                                    moments.</p>
+                            </Alert>
+                        )}
                     </div>
-                )
-            }
+                </Form>
+            </Formik>
         </div>
-    )
+    );
 };
