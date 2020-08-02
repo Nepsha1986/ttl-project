@@ -1,0 +1,45 @@
+{
+    "name": "ttl-project",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "webpack-dev-server --env.NODE_ENV=development --mode development --watch",
+        "build": "webpack --env.NODE_ENV=production"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Nepsha1986/ttl-project.git"
+    },
+    "author": "ALex Nepsha",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Nepsha1986/ttl-project/issues"
+    },
+    "homepage": "https://github.com/Nepsha1986/ttl-project#readme",
+    "browserslist": "> 2%, not dead",
+    "dependencies": {
+        "file-loader": "^6.0.0",
+        "formik": "^2.1.5",
+        "prop-types": "^15.7.2",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "react-router-dom": "^5.2.0",
+        "yup": "^0.29.2"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.8.4",
+        "@babel/preset-env": "^7.8.4",
+        "@babel/preset-react": "^7.8.3",
+        "babel-loader": "^8.0.6",
+        "css-loader": "^3.4.2",
+        "html-webpack-plugin": "^3.2.0",
+        "mini-css-extract-plugin": "^0.9.0",
+        "node-sass": "^4.14.1",
+        "sass-loader": "^8.0.2",
+        "style-loader": "^1.1.3",
+        "webpack": "^4.41.6",
+        "webpack-cli": "^3.3.11",
+        "webpack-dev-server": "^3.11.0"
+    }
+}

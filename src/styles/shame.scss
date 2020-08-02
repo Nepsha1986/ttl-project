@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+}
+
+main {
+  min-height: 100vh;
+}
+
+.window-layout {
+  &__container {
+    background: #ebebeb;
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.history {
+  display: flex;
+
+  &__posts {
+    min-width: 320px;
+  }
+
+  &__timeline {
+    flex-grow: 1;
+  }
+}

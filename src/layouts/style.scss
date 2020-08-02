@@ -1,0 +1,23 @@
+.app {
+  display: flex;
+  flex-grow: 1;
+  min-height: 100vh;
+  flex-direction: column;
+
+  &__body {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  &__aside {
+    padding: 20px;
+    width: 320px;
+    flex-grow: 0;
+    background: #eee;
+  }
+
+  &__main {
+    flex-grow: 1;
+    background: #fafafa;
+  }
+}

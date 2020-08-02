@@ -1,0 +1,26 @@
+.timeline-item {
+  position: relative;
+
+  &--active {
+    .timeline-item__circle {
+      fill: #4bbaf3;
+      stroke: #4bbaf3;
+    }
+  }
+
+  &__year {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  &__circle {
+    fill: #2196f3;
+    stroke: #2196f3;
+    width: 100px;
+    height: 150px;
+    display: block;
+    margin: 0 auto;
+    transition: .3s;
+  }
+}
