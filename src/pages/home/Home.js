@@ -19,24 +19,22 @@ export const Home = () => {
 
     return (
         <FullWidth>
-            <div className="container">
-                <h2>Homepage</h2>
-                <div className='history'>
-                    <div className="history__timeline">
-                        <Timeline/>
-                    </div>
-                    <div className="history__posts">
-                        {posts.map(post => {
-                            return (
-                                <Card key={post.id}
-                                      img={post.img}
-                                      title={post.title}
-                                      excerpt={post.excerpt}
-                                      actions={<CardActions/>}
-                                />
-                            )
-                        })}
-                    </div>
+            <h2>Homepage</h2>
+            <div className='history'>
+                <div className="history__timeline">
+                    <Timeline/>
+                </div>
+                <div className="history__posts">
+                    {posts.map(post => {
+                        return (
+                            <Card key={post.id}
+                                  img={post.img}
+                                  title={post.title}
+                                  excerpt={post.excerpt}
+                                  actions={<CardActions/>}
+                            />
+                        )
+                    })}
                 </div>
             </div>
         </FullWidth>

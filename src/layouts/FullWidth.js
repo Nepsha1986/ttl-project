@@ -10,7 +10,13 @@ export const FullWidth = ({children}) => {
 
             <div className="app__body">
                 <div className="app__main">
-                    {children}
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12">
+                                {children}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
