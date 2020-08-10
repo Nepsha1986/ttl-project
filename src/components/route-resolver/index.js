@@ -1,25 +1,35 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import { Route, Redirect} from 'react-router-dom';
 import {useUser} from '../../context/user';
+import {Preloader} from "../../primitives/preloader";
 
 export const PrivateRoute = ({component: Component, ...rest}) => {
-    const {authenticated} = useUser();
+    const {authenticated, fetching} = useUser();
 
     console.log(authenticated);
     return (
-        <Route
-            {...rest}
-            render={props =>
-                authenticated ? (
-                    <Component {...props} />
+        <Fragment>
+            {
+                fetching ? (
+                    <Preloader/>
                 ) : (
-                    <Redirect
-                        to={{
-                            pathname: "/login"
-                        }}
+                    <Route
+                        {...rest}
+                        render={props =>
+                            authenticated ? (
+                                <Component {...props} />
+                            ) : (
+                                <Redirect
+                                    to={{
+                                        pathname: "/login"
+                                    }}
+                                />
+                            )
+                        }
                     />
                 )
             }
-        />
-    )
+        </Fragment>
+
+    );
 };
