@@ -28,3 +28,19 @@ main {
     flex-grow: 1;
   }
 }
+
+.item-form {
+  padding: 15px;
+  background: #fff;
+  margin-bottom: 1rem;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__body {
+
+  }
+}
