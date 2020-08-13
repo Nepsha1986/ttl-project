@@ -1,84 +1,104 @@
-import React from 'react';
-import {Formik, Form, ErrorMessage, FieldArray, Field} from "formik";
+import React, {useState, useRef} from 'react';
+import {Formik, Form, ErrorMessage, Field, FormikHelpers as resetForm} from "formik";
 import {Button} from "../../../components/button";
 
 export const CreateTimeline = () => {
-    const createTimeline = (timeline) => {
-        console.log(timeline);
-    };
+    const [newTimeLine, setNewTimeLine] = useState({
+        title: '',
+        description: '',
+        items: []
+    });
+
+    const [newItemIsHidden, setNewItemIsHidden] = useState(true);
+
+    const topFormRef = useRef();
+    const itemFormRef = useRef();
+
     return (
         <div className="row">
             <div className="col-7">
                 <Formik
+                    innerRef={topFormRef}
                     initialValues={{
-                        timelineTitle: '',
-                        timelineDesc: '',
-                        timelineItems: [],
+                        title: '',
+                        description: '',
                     }}
-                    onSubmit={(values) => {
-                        createTimeline(values);
+                >
+                    <Form>
+                        <div className="form-group">
+                            <label htmlFor="title">Title</label>
+                            <Field type="text" name="title"/>
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="description">Description</label>
+                            <Field className="form-control" as="textarea" name={'description'}/>
+                        </div>
+                    </Form>
+                </Formik>
+
+                {newItemIsHidden && <Formik
+                    innerRef={itemFormRef}
+                    initialValues={{
+                        title: '',
+                        year: '',
+                        content: ''
                     }}
-                    render={({values}) => (
-                        <Form>
-                            <div className="form-group">
-                                <label htmlFor="timelineTitle">Title</label>
-                                <Field type="text" name="timelineTitle"/>
-                            </div>
+                    onSubmit={(values, {resetForm}) => {
+                        if (newTimeLine.items.find(i => i.title === values.title)) {
+                            alert("Have same ID");
+                            return
+                        }
+                        setNewTimeLine({
+                            ...newTimeLine,
+                            items: [
+                                ...newTimeLine.items,
+                                values
+                            ]
+                        });
+                        resetForm({values: ''});
+                    }}
+                >
+                    <Form>
+                        <div className="form-group">
+                            <label htmlFor="title">Title</label>
+                            <Field type="text" name="title"/>
+                        </div>
 
-                            <div className="form-group">
-                                <label htmlFor="timelineDesc">Description</label>
-                                <Field className="form-control" as="textarea" name={'timelineDesc'}/>
-                            </div>
+                        <div className="form-group">
+                            <label htmlFor="year">Year</label>
+                            <Field type="number" name={'year'}/>
+                        </div>
+                        <Button
+                            type={'submit'}
+                        >
+                            Add
+                        </Button>
+                    </Form>
+                </Formik>}
 
-                            <div className="form-group">
-                                <FieldArray
-                                    name="timelineItems"
-                                    render={arrayHelpers => (
-                                        <div>
-                                            {values.timelineItems.map((item, index) => (
-                                                <div key={item.title}>
-                                                    <div className="item-form">
-                                                        <div className="item-form__header">
-                                                            <h3>TimeLine item</h3>
-                                                            <Button type="secondary" onClick={() => arrayHelpers.remove(index)}>
-                                                                <i className="fas fa-trash" />
-                                                            </Button>
-                                                        </div>
+                <Button
+                    onClick={() => {
+                        setNewItemIsHidden(!newItemIsHidden)
+                    }}
+                >
+                    Add new item
+                </Button>
 
-                                                        <div className="item-form__body">
-                                                            <div className="form-group">
-                                                                <Field placeholder="Title" name={`timelineItems[${index}].title`}/>
-                                                            </div>
-                                                            <div className="form-group">
-                                                                <Field placeholder="Year" name={`timelineItems[${index}].year`}/>
-                                                            </div>
-                                                            <div className="form-group">
-                                                                <Field
-                                                                    className="form-control"
-                                                                    placeholder="Timeline item information"
-                                                                    as="textarea"
-                                                                    name={`timelineItems[${index}].event`}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                            <Button
-                                                type="button"
-                                                onClick={() => {arrayHelpers.push({})}}
-                                            >
-                                                Add new item
-                                            </Button>
-                                        </div>
-                                    )}
-                                />
-                            </div>
+                <Button onClick={() => {
+                    setNewTimeLine({
+                        ...newTimeLine,
+                        ...topFormRef.current.values
+                    });
+                }}>Submit</Button>
+            </div>
 
-                            <Button type={'submit'}>Submit</Button>
-                        </Form>
-                    )}
-                />
+            <div className="col-5">
+                <div className="temporary">
+                    <div>{newTimeLine.title}</div>
+                    <div>{newTimeLine.description}</div>
+                    {newTimeLine.items.map(i => <div key={i.title}>{i.title} - {i.year}</div>)}
+                </div>
             </div>
         </div>
     )

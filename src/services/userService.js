@@ -24,9 +24,6 @@ export default class userService {
     };
 
     static login(user) {
-        console.log('user');
-        console.log(user);
-        console.log('user');
         return fetch('http://localhost:3000/login', {
             method: 'POST',
             headers: {
