@@ -1,0 +1,39 @@
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.75);
+
+  &__wrapper {
+    width: 100%;
+    max-width: 450px;
+    background: #fff;
+    position: relative;
+  }
+
+  &__header {
+    padding: 15px;
+    border-bottom: 1px solid #c1c1c1;
+  }
+
+  &__body {
+
+    padding: 15px;
+  }
+
+  &__actions {
+
+  }
+
+  &__close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+}
