@@ -7,6 +7,7 @@ import {Image} from "../../primitives/image";
 import {Button} from "../button";
 import {useUser} from "../../context/user";
 import userService from "../../services/userService";
+import Icon from "../../primitives/icon";
 
 export const UserBlock = () => {
     const {userData, setAuthenticated} = useUser();
@@ -15,18 +16,20 @@ export const UserBlock = () => {
 
     return (
         <span className="user-block">
-            <span onClick={() => {setActionsActive(!actionsActive)}} className="btn btn-link user-block__btn">
+            <span onClick={() => {
+                setActionsActive(!actionsActive)
+            }} className="btn btn-link user-block__btn">
                 <span className="user-block__name mr-3">{userData?.username}</span>
-                <i className="fas fa-user"></i>
+                <Icon icon="fas fa-user"/>
             </span>
 
-            { actionsActive && (
+            {actionsActive && (
                 <div className="user-block__actions">
                     <div className="user-card">
                         <div className="user-card__header">
                             <div className="user-card__header-left">
                                 <div className="user-card__image">
-                                    <Image src={Logo} />
+                                    <Image src={Logo}/>
                                 </div>
                             </div>
 
@@ -46,7 +49,7 @@ export const UserBlock = () => {
                         }}>Logout</Button>
                     </div>
                 </div>
-            ) }
+            )}
         </span>
     )
 };

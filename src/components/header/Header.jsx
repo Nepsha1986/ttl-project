@@ -1,11 +1,11 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 
 import './style.scss';
-import {Link} from "react-router-dom";
 import {useHistory} from "react-router-dom";
 import {useUser} from "../../context/user";
 import {UserBlock} from "../user-block";
 import {Button} from "../button";
+import Icon from "../../primitives/icon";
 
 export const Header = () => {
     const {authenticated} = useUser();
@@ -16,20 +16,20 @@ export const Header = () => {
             <div className="header__container">
                 <div className="header__menu">
                     <a href="#" className="menu-btn">
-                        <i className="menu-btn__icon fas fa-bars"></i>
+                        <Icon icon="fas fa-bars" />
                     </a>
                 </div>
 
                 <div className="header__meta">
                     {!authenticated &&
-                    <Fragment>
+                    <>
                         <Button utilities={'mr-2'} color="secondary" onClick={() => {
                             history.push('/login')
                         }}>Login</Button>
                         <Button color="secondary" onClick={() => {
                             history.push('/register')
                         }}>Register</Button>
-                    </Fragment>
+                    </>
                     }
                     {authenticated ? <UserBlock/> : null}
                 </div>
