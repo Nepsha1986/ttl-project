@@ -6,6 +6,7 @@ import Modal from "../../../primitives/modal";
 import {Button} from "../../../components/button";
 import {Alert} from "../../../primitives/alert/Alert";
 import {TimeLineItem} from "../../../components/time-line-item";
+import {DatePickerField, FormGroup} from "../../../primitives/form-elements";
 
 export const CreateTimeline = () => {
     const [newTimeLine, setNewTimeLine] = useState({
@@ -32,7 +33,7 @@ export const CreateTimeline = () => {
                     validationSchema={TimeLineSchema}
                 >
                     <Form>
-                        <div className="form-group">
+                        <FormGroup>
                             <Field
                                 placeholder="Timeline title"
                                 type="text"
@@ -42,9 +43,9 @@ export const CreateTimeline = () => {
                             <ErrorMessage name="title">
                                 {(msg) => <Alert children={msg} type={"danger"}/>}
                             </ErrorMessage>
-                        </div>
+                        </FormGroup>
 
-                        <div className="form-group">
+                        <FormGroup>
                             <Field
                                 placeholder="Timeline description"
                                 className="form-control"
@@ -52,9 +53,10 @@ export const CreateTimeline = () => {
                                 id={'description'}
                                 name={'description'}
                             />
-                            <ErrorMessage name="description">{(msg) => <Alert children={msg}
-                                                                              type={"danger"}/>}</ErrorMessage>
-                        </div>
+                            <ErrorMessage name="description">
+                                {(msg) => <Alert children={msg} type={"danger"}/>}
+                            </ErrorMessage>
+                        </FormGroup>
                     </Form>
                 </Formik>
 
@@ -69,7 +71,7 @@ export const CreateTimeline = () => {
                         innerRef={itemFormRef}
                         initialValues={{
                             title: '',
-                            year: '',
+                            date: '',
                             content: ''
                         }}
                         onSubmit={(values, {resetForm}) => {
@@ -89,27 +91,24 @@ export const CreateTimeline = () => {
                         }}
                     >
                         <Form>
-                            <div className="form-group">
+                            <FormGroup>
                                 <label htmlFor="title">Title</label>
                                 <Field type="text" name="title"/>
-                            </div>
+                            </FormGroup>
 
-                            <div className="form-group">
-                                <label htmlFor="year">Year</label>
-                                <Field type="number" name={'year'}/>
-                            </div>
-                            <Button
-                                type={'submit'}
-                            >
-                                Add
-                            </Button>
+                            <FormGroup>
+                                <label htmlFor="date">Date</label>
+                                <DatePickerField name="date"/>
+                            </FormGroup>
+
+                            <Button type={'submit'}>Add</Button>
                         </Form>
                     </Formik>
                 </Modal>
 
                 <div className="timeline-creation">
                     <div className="timeline-creation__items">
-                        {newTimeLine.items.map(i => <TimeLineItem key={i.year} year={i.year}/>)}
+                        {newTimeLine.items.map(i => <TimeLineItem key={i.title}/>)}
                     </div>
                     <div className="timeline-creation__button">
                         <Button
@@ -135,5 +134,5 @@ export const CreateTimeline = () => {
                 </Button>
             </div>
         </div>
-    )
+    );
 };
