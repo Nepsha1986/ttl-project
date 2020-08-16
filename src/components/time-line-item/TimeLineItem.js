@@ -9,8 +9,8 @@ export const TimeLineItem = ({year, isActive, onclick, isLast}) => {
                 {
                     !isLast && <line x1="50" y1="50" x2="50" y2="150" style={{strokeWidth: 3}}/>
                 }
-                <circle cx="50" cy="42" r="40" strokeWidth="3"/>
-                <circle cx="50" cy="42" r="20" fill="#57a1dc" strokeWidth="3"/>
+                <circle className="timeline-item__outer-circle" cx="50" cy="42" r="40" strokeWidth="3"/>
+                <circle className="timeline-item__inner-circle" cx="50" cy="42" r="20" strokeWidth="3"/>
             </svg>
         </div>
     )

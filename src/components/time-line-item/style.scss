@@ -1,5 +1,6 @@
 .timeline-item {
   position: relative;
+  width: 100px;
 
   &--active {
     .timeline-item__circle {
@@ -10,7 +11,11 @@
 
   &__year {
     position: absolute;
-    left: 0;
+    left: 90px;
+    color: #535353;
+    font-weight: bold;
+    font-size: 1.15rem;
+    font-style: italic;
     top: 0;
   }
 
@@ -22,5 +27,13 @@
     display: block;
     margin: 0 auto;
     transition: .3s;
+  }
+
+  &__inner-circle {
+    fill: #fff;
+  }
+
+  &__outer-circle {
+
   }
 }

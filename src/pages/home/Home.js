@@ -19,7 +19,7 @@ export const Home = () => {
 
     return (
         <FullWidth>
-            <h2>Homepage</h2>
+            <h2 className="mb-5">Homepage</h2>
             <div className='history'>
                 <div className="history__timeline">
                     <Timeline/>

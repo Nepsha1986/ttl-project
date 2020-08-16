@@ -9,8 +9,6 @@ export const Dashboard = () => {
 
     return (
         <WithSidebar>
-            <h2>Dashboard</h2>
-
             <Switch>
                 <Route path={`${match.path}/new-timeline`} component={CreateTimeline} />
                 <Route path={match.path}>
