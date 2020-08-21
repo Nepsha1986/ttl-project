@@ -8,15 +8,13 @@ export const Button = (
         children,
         color,
         utilities,
-        onClick,
-        type
+        ...props
     }
 ) => {
     return (
         <button
-            type={type}
             className={`btn btn--${color} ${utilities}`}
-            onClick={onClick}
+            {...props}
         >
             {children}
         </button>
@@ -26,14 +24,10 @@ export const Button = (
 Button.defaultProps = {
     color: 'primary',
     utilities: '',
-    type: '',
-    onClick: () => {}
 };
 
 Button.propTypes = {
     children: PropTypes.node.isRequired,
     color: PropTypes.oneOf(['primary', 'secondary', 'alternative']),
     utilities: PropTypes.string,
-    onClick: PropTypes.func,
-    type: PropTypes.string,
 };
