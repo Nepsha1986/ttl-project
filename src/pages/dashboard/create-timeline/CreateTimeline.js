@@ -10,9 +10,10 @@ import {DatePickerField, FormGroup} from "../../../primitives/form-elements";
 
 export const CreateTimeline = () => {
     return (
-        <div className="row">
-            <div className="col-12">
-                <h2 className="mb-5">Create new timeline</h2>
+        <div className="row justify-content-center">
+            <div className="col-xl-8 col-lg-10 col-12">
+                <h2 className="mb-2">Create new timeline</h2>
+                <hr className="mb-5"/>
                 <Formik
                     initialValues={{
                         title: '',
@@ -26,9 +27,12 @@ export const CreateTimeline = () => {
                 >
                     {({values}) => (
                         <Form>
+                            <h5 className="mb-4">Timeline main information</h5>
                             <FormGroup>
+                                <label htmlFor="title">Title</label>
                                 <Field
                                     placeholder="Timeline title"
+                                    className="mb-1"
                                     type="text"
                                     name="title"
                                     id={'title'}
@@ -39,9 +43,10 @@ export const CreateTimeline = () => {
                             </FormGroup>
 
                             <FormGroup>
+                                <label htmlFor="description">Description</label>
                                 <Field
                                     placeholder="Timeline description"
-                                    className="form-control"
+                                    className="form-control mb-1"
                                     as="textarea"
                                     id={'description'}
                                     name={'description'}
@@ -56,25 +61,68 @@ export const CreateTimeline = () => {
                                 render={arrayHelpers => (
                                     <FormGroup>
                                         {values.items.map((item, index) => (
-                                            <div key={index}>
-                                                <Field name={`items.${index}.title`}/>
-                                                <Field name={`items.${index}.description`}/>
-                                                <button type="button" onClick={() => arrayHelpers.remove(index)}>
-                                                    -
-                                                </button>
+                                            <div key={index} className={'panel mb-3'}>
+                                                <div className="panel__header">
+                                                    <h3>{values.items[index].title}</h3>
+                                                </div>
+
+                                                <div className="panel__body">
+                                                    <FormGroup>
+                                                        <label htmlFor={`items.${index}.title`}>Line item name</label>
+                                                        <Field
+                                                            name={`items.${index}.title`}
+                                                            id={`items.${index}.title`}
+                                                        />
+                                                    </FormGroup>
+
+                                                    <FormGroup>
+                                                        <label
+                                                            htmlFor={`items.${index}.description`}>Description</label>
+                                                        <Field
+                                                            className="form-control"
+                                                            as="textarea"
+                                                            name={`items.${index}.description`}
+                                                            id={`items.${index}.description`}
+                                                        />
+                                                    </FormGroup>
+
+                                                    <FormGroup>
+                                                        <label htmlFor={`items.${index}.date`}>Date</label>
+                                                        <DatePickerField
+                                                            name={`items.${index}.date`}
+                                                            id={`items.${index}.date`}
+                                                        />
+                                                    </FormGroup>
+
+                                                    <Button
+                                                        utilities={'mr-1'}
+                                                        color={"danger"}
+                                                        type="button"
+                                                        onClick={() => arrayHelpers.remove(index)}
+                                                    >
+                                                        Remove
+                                                    </Button>
+
+                                                    <Button
+                                                        color={"primary"}
+                                                        type="button"
+                                                        onClick={()=>{}}>
+                                                        Ok
+                                                    </Button>
+                                                </div>
                                             </div>
                                         ))}
-                                        <button
+                                        <Button
                                             type="button"
                                             onClick={() => arrayHelpers.push({title: '', description: ''})}
                                         >
-                                            +
-                                        </button>
+                                            Add new item
+                                        </Button>
                                     </FormGroup>
                                 )}
                             />
 
-                            <Button type="submit">Submit</Button>
+                            <Button utilities={"btn--fixed-bottom-right"} type="submit">Submit</Button>
                         </Form>
                     )}
 

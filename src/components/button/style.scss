@@ -28,6 +28,10 @@
     background: $color-secondary;
   }
 
+  &--danger {
+    background: $color-danger;
+  }
+
   &--fixed-bottom-right {
     position: fixed;
     bottom: 30px;

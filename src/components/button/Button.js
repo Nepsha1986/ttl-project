@@ -28,6 +28,6 @@ Button.defaultProps = {
 
 Button.propTypes = {
     children: PropTypes.node.isRequired,
-    color: PropTypes.oneOf(['primary', 'secondary', 'alternative']),
+    color: PropTypes.oneOf(['primary', 'secondary', 'alternative', 'danger']),
     utilities: PropTypes.string,
 };
