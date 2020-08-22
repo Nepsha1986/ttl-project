@@ -7,6 +7,7 @@ import {Button} from "../../../components/button";
 import {Alert} from "../../../primitives/alert/Alert";
 import {TimeLineItem} from "../../../components/time-line-item";
 import {DatePickerField, FormGroup} from "../../../primitives/form-elements";
+import Panel from "../../../primitives/panel";
 
 export const CreateTimeline = () => {
     return (
@@ -60,58 +61,55 @@ export const CreateTimeline = () => {
                                 name="items"
                                 render={arrayHelpers => (
                                     <FormGroup>
-                                        {values.items.map((item, index) => (
-                                            <div key={index} className={'panel mb-3'}>
-                                                <div className="panel__header">
-                                                    <h3>{values.items[index].title}</h3>
+                                        {values.items.map((item, index) => {
+                                            return (
+                                                <div key={index} className={'mb-3'}>
+                                                    <Panel
+                                                        opened
+                                                        headerSlot={values.items[index].title}
+                                                        bodySlot={
+                                                            <>
+                                                                <FormGroup>
+                                                                    <label htmlFor={`items.${index}.title`}>Line item name</label>
+                                                                    <Field
+                                                                        name={`items.${index}.title`}
+                                                                        id={`items.${index}.title`}
+                                                                    />
+                                                                </FormGroup>
+
+                                                                <FormGroup>
+                                                                    <label
+                                                                        htmlFor={`items.${index}.description`}>Description</label>
+                                                                    <Field
+                                                                        className="form-control"
+                                                                        as="textarea"
+                                                                        name={`items.${index}.description`}
+                                                                        id={`items.${index}.description`}
+                                                                    />
+                                                                </FormGroup>
+
+                                                                <FormGroup>
+                                                                    <label htmlFor={`items.${index}.date`}>Date</label>
+                                                                    <DatePickerField
+                                                                        name={`items.${index}.date`}
+                                                                        id={`items.${index}.date`}
+                                                                    />
+                                                                </FormGroup>
+
+                                                                <Button
+                                                                    utilities={'mr-1'}
+                                                                    color={"danger"}
+                                                                    type="button"
+                                                                    onClick={() => arrayHelpers.remove(index)}
+                                                                >
+                                                                    Remove
+                                                                </Button>
+                                                            </>
+                                                        }
+                                                    />
                                                 </div>
-
-                                                <div className="panel__body">
-                                                    <FormGroup>
-                                                        <label htmlFor={`items.${index}.title`}>Line item name</label>
-                                                        <Field
-                                                            name={`items.${index}.title`}
-                                                            id={`items.${index}.title`}
-                                                        />
-                                                    </FormGroup>
-
-                                                    <FormGroup>
-                                                        <label
-                                                            htmlFor={`items.${index}.description`}>Description</label>
-                                                        <Field
-                                                            className="form-control"
-                                                            as="textarea"
-                                                            name={`items.${index}.description`}
-                                                            id={`items.${index}.description`}
-                                                        />
-                                                    </FormGroup>
-
-                                                    <FormGroup>
-                                                        <label htmlFor={`items.${index}.date`}>Date</label>
-                                                        <DatePickerField
-                                                            name={`items.${index}.date`}
-                                                            id={`items.${index}.date`}
-                                                        />
-                                                    </FormGroup>
-
-                                                    <Button
-                                                        utilities={'mr-1'}
-                                                        color={"danger"}
-                                                        type="button"
-                                                        onClick={() => arrayHelpers.remove(index)}
-                                                    >
-                                                        Remove
-                                                    </Button>
-
-                                                    <Button
-                                                        color={"primary"}
-                                                        type="button"
-                                                        onClick={()=>{}}>
-                                                        Ok
-                                                    </Button>
-                                                </div>
-                                            </div>
-                                        ))}
+                                            )
+                                        })}
                                         <Button
                                             type="button"
                                             onClick={() => arrayHelpers.push({title: '', description: ''})}
